@@ -1,0 +1,33 @@
+@startuml test_case1_classes
+
+!ifndef CLASSES
+!include ../../UML/Templates/Classes.cuml
+!endif
+
+class TestClass1 {
+    + static_field(testNormalClassAttribute)
+    # static_field(_testHiddenClassAttribute)
+    + testNormalInstanceAttribute
+    # _testHiddenInstanceAttribute
+    --Read-write Property--
+    + MyProperty
+    ..
+    defined via @property
+    and @MyProperty.setter
+    __
+    + static_method(getFullName)
+    + static_method(getNormalClassMethod)
+    # static_method(_getHiddenClassMethod)
+    + getNormalInstanceMethod()
+    # _getHiddenInstanceMethod()
+}
+
+class object <<built-in>>
+
+object <|-right- TestClass1
+
+class TestClass2
+
+TestClass2 -left-|> TestClass1
+
+@enduml

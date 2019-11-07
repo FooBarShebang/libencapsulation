@@ -1,0 +1,9 @@
+!define DESCRIPTOR_CLASS
+
+class DescriptorClass {
+    Name: str
+    Value: type A
+    __init__(): str, type A -> None
+    __get__(): type A/, type type A OR None/ -> type B
+    __set__(): type A, type B -> None
+}

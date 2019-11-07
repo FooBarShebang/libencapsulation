@@ -1,0 +1,30 @@
+@startuml test_case3_activity
+
+start
+
+if (name starts with\nan underscore?) then (yes)
+    if (name starts with\ndouble underscore) then (yes)
+        :special attribute or method;
+    else (no)
+        :"private" method or attribute;
+        :raise custom exception\nwith explanation;
+        stop
+    endif
+else (no)
+    :normal attribute or method;
+endif
+
+:call parent's hook method\nthat is not overridden;
+
+if (AttributeError exception?) then (no)
+    :method or attribute is found;
+    :return result of the parent's\nhook method call;
+    stop
+else (yes)
+    :method or attribute is not found;
+    :treat exception, e.g. raise\nsome custom exception\nwith explanation;
+endif
+
+stop
+
+@enduml

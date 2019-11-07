@@ -1,0 +1,19 @@
+@startuml test_case6
+
+!ifndef TEST_CLASS_META
+!include ./test_class_meta.iuml
+!endif
+
+!ifndef DESCRIPTOR_CLASS
+!include ./descriptor_class.iuml
+!endif
+
+!ifndef TEST_CLASS6
+!include ./test_class6.iuml
+!endif
+
+TestClassMeta "1" --o "1" TestClass
+
+DescriptorClass "1" -o "2" TestClass
+
+@enduml

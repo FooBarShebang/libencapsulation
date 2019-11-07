@@ -1,0 +1,15 @@
+@startuml test_case2_activity
+
+start
+
+if (name in instance\ndictionary ?) then (yes)
+    :return instance\nattribute or method;
+elseif (name in this\nclass dictionary?) then (yes)
+    :return this class\nattribute or method;
+else (no)
+    :look up parent classes\nfollowing MRO rules;
+endif
+
+stop
+
+@enduml

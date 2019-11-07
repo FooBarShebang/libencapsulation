@@ -1,0 +1,9 @@
+!define TEST_CLASS_META
+
+!ifndef CLASSES
+!include ../../UML/Templates/Classes.cuml
+!endif
+
+class TestClassMeta <<metaclass>>{
+    __setattr__(): str, type A -> None
+}

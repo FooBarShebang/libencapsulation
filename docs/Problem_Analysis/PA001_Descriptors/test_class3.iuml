@@ -1,0 +1,12 @@
+!define TEST_CLASS3
+
+!ifndef CLASSES
+!include ../../UML/Templates/Classes.cuml
+!endif
+
+class TestClass {
+    + static_field(A) : DescriptorClass
+    + B: DescriptorClass
+    __getattribute__(): str -> type A
+    __setattr__(): str, type A -> None
+}

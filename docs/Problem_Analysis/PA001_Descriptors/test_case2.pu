@@ -1,0 +1,13 @@
+@startuml test_case2
+
+!ifndef DESCRIPTOR_CLASS
+!include ./descriptor_class.iuml
+!endif
+
+!ifndef TEST_CLASS2
+!include ./test_class2.iuml
+!endif
+
+DescriptorClass "1" -o "2" TestClass
+
+@enduml

@@ -1,0 +1,9 @@
+!define TEST_CLASS1
+
+!ifndef CLASSES
+!include ../../UML/Templates/Classes.cuml
+!endif
+
+class TestClass {
+    + static_field(A) : DescriptorClass
+}

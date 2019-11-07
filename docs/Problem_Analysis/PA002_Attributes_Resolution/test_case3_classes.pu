@@ -1,0 +1,46 @@
+@startuml test_case3_classes
+
+!ifndef CLASSES
+!include ../../UML/Templates/Classes.cuml
+!endif
+
+class TestClass1 {
+    + static_field(testNormalClassAttribute)
+    # static_field(_testHiddenClassAttribute)
+    + testNormalInstanceAttribute
+    # _testHiddenInstanceAttribute
+    --Read-write Property--
+    + MyProperty
+    ..
+    defined via @property
+    and @MyProperty.setter
+    __
+    + static_method(getFullName)
+    + static_method(getNormalClassMethod)
+    # static_method(_getHiddenClassMethod)
+    + getNormalInstanceMethod()
+    # _getHiddenInstanceMethod()
+}
+
+class object <<built-in>>
+
+TestClass1 --|> object
+
+class PrivateFieldsClass {
+    + static_field(__meta__): PrivateFieldMeta
+    __getattribute__()
+    __setattr__()
+}
+
+TestClass1 <|- PrivateFieldsClass
+
+class PrivateFieldMeta <<metaclass>> {
+    __getattribute__()
+    __setattr__()
+}
+PrivateFieldsClass *-up- PrivateFieldMeta
+class TestClass2
+
+PrivateFieldsClass <|-- TestClass2
+
+@enduml
