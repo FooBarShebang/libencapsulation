@@ -1,0 +1,36 @@
+@startuml protected_class_setattr
+
+start
+
+:Name - string, name of the attribute
+Value - any type, value to be assigned<
+
+if (Name starts with a single '_'?) then (Yes)
+    :raise PrivateAttributeAccess;
+    
+    stop
+else (No)
+    :check the class' own dictionary;
+    
+    if (found key?) then (Yes)
+        :change the value bound to the key;
+        
+        stop
+    else (No)
+         while (iterate the MRO of the class)
+            :check the super-class' dictionary;
+            
+            if (found key?) then (Yes)
+                :change the value bound to the key;
+                
+                stop
+            endif
+        end while (list exhausted)
+        
+        :create new key : value pair in the class' own dictionary;
+        
+        stop
+    endif
+endif
+
+@enduml

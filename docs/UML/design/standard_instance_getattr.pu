@@ -1,0 +1,37 @@
+@startuml standard_instance_getattr
+
+start
+
+:Name - string, name of the attribute<
+
+:check the instance' own dictionary;
+
+if (found key?) then (Yes)
+    :return the the value bound to the key>
+    
+    stop
+else (No)
+    :check the class' own dictionary;
+    
+    if (found key?) then (Yes)
+        :return the the value bound to the key>
+        
+        stop
+    else (No)
+        while (iterate the MRO of the class)
+            :check the super-class' dictionary;
+            
+            if (found key?) then (Yes)
+                :return the the value bound to the key>
+                
+                stop
+            endif
+        end while (list exhausted)
+        
+        :raise AttributeError exception;
+        
+        stop
+    endif
+endif
+
+@enduml

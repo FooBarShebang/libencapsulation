@@ -1,0 +1,18 @@
+@startuml standard_class_setattr
+
+start
+
+:Name - string, name of the attribute
+Value - any type, value to be assigned<
+
+:check the class' own dictionary;
+
+if (found key?) then (Yes)
+    :change the value bound to the key;
+else (No)
+    :create new key : value pair in the dictionary;
+endif
+
+stop
+
+@enduml

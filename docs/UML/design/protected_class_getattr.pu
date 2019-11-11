@@ -1,0 +1,35 @@
+@startuml protected_class_getattr
+
+start
+
+:Name - string, name of the attribute<
+
+if (Name starts with a single '_'?) then (Yes)
+    :raise PrivateAttributeAccess;
+    
+    stop
+else (No)
+    :check the class' own dictionary;
+
+    if (found key?) then (Yes)
+        :return the the value bound to the key>
+        
+        stop
+    else (No)
+        while (iterate the MRO of the class)
+            :check the super-class' dictionary;
+            
+            if (found key?) then (Yes)
+                :return the the value bound to the key>
+                
+                stop
+            endif
+        end while (list exhausted)
+        
+        :raise NotExistingAttribute exception;
+        
+        stop
+    endif
+endif
+
+@enduml
