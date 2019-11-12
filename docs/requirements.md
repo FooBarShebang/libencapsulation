@@ -79,7 +79,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Title:** Introspection functionality
 
-**Description:** Due to the non-trivial modifications introduced to the arguments resolution scheme the classes implemented in the library should provide the methods to list the *public class data fieds* (not callable attributes accessible with and without instantiation), the *public class methods* (class and static methods as well as callable objects accessible with and without instantiation), the *public instance data fields* (not callable attributes accessible only from an instance as well as the properties) and the *public instance methods* (instance methods as well as callable objects or normal functions stored by reference in the instance dictionary).
+**Description:** Due to the non-trivial modifications introduced to the arguments resolution scheme the classes implemented in the library should provide the methods to list the *public class data fieds* (all attributes defined along MRO chain which are not explicitely defined as class, static of instance methods or property and can be accessed with and without instantiation), the *public class methods* (all attributes defined along MRO chain which are explicitely defined as class or static methods), the *public instance data fields* (all 'public' attributes stored in the instance dictionary), the *public instance methods* (all attributes defined along MRO chain which are explicitely defined as instance methods) and the *public properties* (all attributes defined along MRO chain which are explicitely defined as properties). The 'public' attributes are those, which names do not start with any amount of underscores. Note that the instance 'data attributes' can store callable objects: functions, classes or instances of the classes with the defined *\_\_call\_\_*() method - which will behave as if methods, i.e. object.attribute() call is completely legal. The class 'data attributes' can store classes or instances of the classes with the defined *\_\_call\_\_*() method but not the functions with the same behaviour. Functions stored as the class attributes must be explicitely converted into *static methods* to work properly. It is left up to the class' client to define if the 'data field' contain a callable object or not.
 
 **Verification Method:** T
 
@@ -99,7 +99,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Title:** Customised exceptions
 
-**Description:** Instead of the generic, standard Python exception **AttributeError** the customized exceptions **NotExistingAttribute** and **PrivateAttributeAccess** should be raised, which are defined in the library *libexceptions* and are sub-classes of the **AttributeError** exception.
+**Description:** Instead of the generic, standard Python exception **AttributeError** the customized exceptions **CustomAttributeError**, **NotExistingAttribute** and **PrivateAttributeAccess** should be raised, which are defined in the library *libexceptions* and are sub-classes of the **AttributeError** exception.
 
 **Verification Method:** T
 
@@ -120,5 +120,15 @@ The verification method for a requirement is given by a single letter according 
 **Title:** Missing attribute access exception
 
 **Description:** The **NotExistingAttribute** exception should be raised in response to read access to an attribute not defined in the instance dictionary or in any of the (super) classes along the MRO chain. The same exception should be raised upon deletion requirest concerning an instance attribute not defined in the instance's dictionary or a class attribute not defined in the class' own dictionary when envoked on the class level without instantiation. The same exception should be raised in response to the attribute modification if the attribute is not found in neither the instance's dictionary or in any of the super classes' dictionary and the creation of the attributes 'on the fly' is not allowed.
+
+**Verification Method:** T
+
+---
+
+**Requirement ID:** REQ-AWM-003
+
+**Title:** Forbidden deletion of an attribute
+
+**Description:** The **CustomAttributeError** exception should be raised in response to an attempt of deletion of a 'public', *magic* or name mangling attribute of a class or instance of a class with the fixed data structure.
 
 **Verification Method:** T

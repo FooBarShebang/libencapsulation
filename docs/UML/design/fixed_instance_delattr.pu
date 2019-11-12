@@ -1,0 +1,25 @@
+@startuml fixed_instance_delattr
+
+start
+
+:Name - string, name of an attribute<
+
+if (Name starts with single '_'?) then (Yes)
+    :raise PrivateAttributeAccess exception;
+    
+    stop
+else (No)
+    :check the instance's own dictionary;
+
+    if (found key?) then (Yes)
+        :raise CustomAttributeError exception;
+        
+        stop
+    else (No)
+        :raise NotExistingAttribute exception;
+        
+        stop
+    endif
+endif
+
+@enduml

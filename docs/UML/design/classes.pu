@@ -1,0 +1,69 @@
+@startuml classes
+
+!ifndef CLASSES
+!include ../Templates/Classes.cuml
+!endif
+
+set namespaceSeparator none
+
+class type <<built-in>>
+
+class abc.ABCMeta <<standard library>>
+
+abc.ABCMeta -|> type
+
+class object <<built-in>>
+
+class ProtectedMeta <<metaclass>> {
+    ___
+    ___
+    overrides magic methods
+    __del__(), __getattribute__(),
+    __setattr__(), __delattr__()
+    for the class level access
+    without instantiation
+}
+
+abc.ABCMeta <|-- ProtectedMeta
+
+class ProtectedClass <<SINGLETON>> {
+    static_field(__metaclass__) : ProtectedMeta
+    ___
+    overrides magic methods
+    __del__(), __getattribute__(),
+    __setattr__(), __delattr__()
+    for the instance level access,
+    implements virtual instance
+    method for the instance
+    attributes creation and
+    initialization
+}
+
+ProtectedMeta -o ProtectedClass
+
+object <|-- ProtectedClass
+
+class FixedMeta <<metaclass>> {
+    ___
+    ___
+    overrides magic methods
+    __setattr__(), __delattr__()
+    for the class level access
+    without instantiation
+}
+
+ProtectedMeta <|-- FixedMeta
+
+class FixedClass <<SINGLETON>> {
+    static_field(__metaclass__) : FixedMeta
+    ___
+    overrides magic methods
+    __setattr__(), __delattr__()
+    for the instance level access
+}
+
+FixedMeta -o FixedClass
+
+ProtectedClass <|-- FixedClass
+
+@enduml

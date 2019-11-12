@@ -49,6 +49,7 @@ For traceability the relation between tests and requirements is summarized in th
 | REQ-AWN-000        |              | NO                      |
 | REQ-AWN-001        |              | NO                      |
 | REQ-AWN-002        |              | NO                      |
+| REQ-AWN-003        |              | NO                      |
 
 
 
