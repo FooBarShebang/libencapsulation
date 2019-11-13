@@ -51,8 +51,6 @@ For traceability the relation between tests and requirements is summarized in th
 | REQ-AWN-002        |              | NO                      |
 | REQ-AWN-003        |              | NO                      |
 
-
-
 | **Software ready for production \[YES/NO\]** | **Rationale**                 |
 | :------------------------------------------: | :---------------------------- |
 | NO                                          | not implemented yet          |
