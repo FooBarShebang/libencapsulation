@@ -5,7 +5,7 @@ start
 :Name - string, name of the attribute
 Value - any type, value to be assigned<
 
-if (Name starts with a single '_'?) then (Yes)
+if (Name starts with a single '_' AND schema is enabled?) then (Yes)
     :raise PrivateAttributeAccess;
     
     stop
@@ -34,8 +34,11 @@ else (No)
                 endif
             end while (list exhausted)
             
-            :raise NotExistingAttribute;
-            
+            if (AND schema is enabled?) then (Yes)
+                :raise NotExistingAttribute;
+            else (No)
+                :create new key: value pair\nin the instance's own dictionary;
+            endif
             stop
         endif
     endif

@@ -4,7 +4,7 @@ start
 
 :Name - string, name of the attribute<
 
-if (Name starts with a single '_'?) then (Yes)
+if (Name starts with a single '_'  AND schema is enabled?) then (Yes)
     :raise PrivateAttributeAccess;
     
     stop

@@ -127,8 +127,8 @@ The verification method for a requirement is given by a single letter according 
 
 **Requirement ID:** REQ-AWM-003
 
-**Title:** Forbidden deletion of an attribute
+**Title:** Forbidden deletion or modification of an attribute
 
-**Description:** The **CustomAttributeError** exception should be raised in response to an attempt of deletion of a 'public', *magic* or name mangling attribute of a class or instance of a class with the fixed data structure.
+**Description:** The **CustomAttributeError** exception should be raised in response to an attempt of deletion of a 'public', *magic* or name mangling attribute of a class or instance of a class with the fixed data structure. The same error should be raised if the attributed to be deleted or modified is a method (class, static, instance) or a property access without instantiation of a class. Finally, the same exception should be raised if the descriptors of a class data attribute or instance attribute.
 
 **Verification Method:** T
