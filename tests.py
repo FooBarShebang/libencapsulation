@@ -5,8 +5,8 @@ Module libencapsulation.test
 Implements a set of unit-tests for the library.
 """
 
-__version__ = "0.1.1.0"
-__date__ = "14-11-2019"
+__version__ = "1.0.0.0"
+__date__ = "15-11-2019"
 __status__ = "Testing"
 
 #imports
@@ -897,7 +897,7 @@ class Test_FixedTop(Test_ProtectedTop):
     Test cases for the checking the implementation of the protected attributes
     and static class attributes as well as the introspection functionality.
     
-    Test id: TEST-T-001. Covers the requirements: REQ-FUN-000, REQ-FUN-001,
+    Test id: TEST-T-002. Covers the requirements: REQ-FUN-000, REQ-FUN-001,
     REQ-FUN-002, REQ-FUN-003, REQ-FUN-004, REQ-AWM-000, REQ-AWM-001,
     REQ-AWM-002, REQ-AWM-003
     """
@@ -1025,7 +1025,7 @@ class Test_FixedMiddle(Test_FixedTop):
     Test cases for the checking the implementation of the protected attributes
     and static class attributes as well as the introspection functionality.
     
-    Test id: TEST-T-001. Covers the requirements: REQ-FUN-000, REQ-FUN-001,
+    Test id: TEST-T-002. Covers the requirements: REQ-FUN-000, REQ-FUN-001,
     REQ-FUN-002, REQ-FUN-003, REQ-FUN-004, REQ-AWM-000, REQ-AWM-001,
     REQ-AWM-002, REQ-AWM-003
     """
@@ -1046,7 +1046,7 @@ class Test_FixedBottom(Test_FixedTop):
     Test cases for the checking the implementation of the protected attributes
     and static class attributes as well as the introspection functionality.
     
-    Test id: TEST-T-001. Covers the requirements: REQ-FUN-000, REQ-FUN-001,
+    Test id: TEST-T-002. Covers the requirements: REQ-FUN-000, REQ-FUN-001,
     REQ-FUN-002, REQ-FUN-003, REQ-AWM-000, REQ-AWM-001, REQ-AWM-002, REQ-AWM-003
     """
     
@@ -1102,6 +1102,97 @@ class Test_ProtectedBottom(Test_ProtectedTop):
         cls.DownHill = []
         cls.UpHill = [ProtectedTop, ProtectedMiddle]
 
+class Test_Introspection(unittest.TestCase):
+    """
+    Test cases for the checking the introspection functionality
+    
+    Test id: TEST-T-003. Covers the requirements: REQ-FUN-005.
+    """
+    
+    @classmethod
+    def setUpClass(cls):
+        """
+        Preparation for the test cases, done only once.
+        """
+        cls.AllClasses = [ProtectedTop, ProtectedMiddle, ProtectedBottom,
+                                            FixedTop, FixedMiddle, FixedBottom]
+        cls.PublicClassMethods = ['ClassMethod', 'StaticMethod',
+                                    'getClassMethods', 'getClassFields',
+                                        'getInstanceMethods', 'getProperties']
+        cls.PublicInstanceMethods = ['MyMethod', 'getInstanceFields']
+        cls.PublicProperties = ['MyProperty', 'FixedProperty']
+        cls.PublicClassFields = ['A', 'B']
+        cls.PublicInstanceFields = ['D', 'E']
+    
+    def test_getClassMethods(self):
+        """
+        Tests REQ-FUN-005. All classes and their instances must properly find
+        all public class and static methods available to them.
+        """
+        for clsTest in self.AllClasses:
+            lstReference = self.PublicClassMethods
+            lstTest = clsTest.getClassMethods()
+            self.assertItemsEqual(lstTest, lstReference)
+            objTest = clsTest()
+            lstTest = objTest.getClassMethods()
+            self.assertItemsEqual(lstTest, lstReference)
+            del objTest
+    
+    def test_getClassFields(self):
+        """
+        Tests REQ-FUN-005. All classes and their instances must properly find
+        all public static class fields (not methods or properties).
+        """
+        for clsTest in self.AllClasses:
+            lstReference = self.PublicClassFields
+            lstTest = clsTest.getClassFields()
+            self.assertItemsEqual(lstTest, lstReference)
+            objTest = clsTest()
+            lstTest = objTest.getClassFields()
+            self.assertItemsEqual(lstTest, lstReference)
+            del objTest
+    
+    def test_getProperties(self):
+        """
+        Tests REQ-FUN-005. All classes and their instances must properly find
+        all public properties.
+        """
+        for clsTest in self.AllClasses:
+            lstReference = self.PublicProperties
+            lstTest = clsTest.getProperties()
+            self.assertItemsEqual(lstTest, lstReference)
+            objTest = clsTest()
+            lstTest = objTest.getProperties()
+            self.assertItemsEqual(lstTest, lstReference)
+            del objTest
+    
+    def test_getInstanceMethods(self):
+        """
+        Tests REQ-FUN-005. All classes and their instances must properly find
+        all public instance methods.
+        """
+        for clsTest in self.AllClasses:
+            lstReference = self.PublicInstanceMethods
+            lstTest = clsTest.getInstanceMethods()
+            self.assertItemsEqual(lstTest, lstReference)
+            objTest = clsTest()
+            lstTest = objTest.getInstanceMethods()
+            self.assertItemsEqual(lstTest, lstReference)
+            del objTest
+    
+    def test_getInstanceFields(self):
+        """
+        Tests REQ-FUN-005. All classes' instances must properly find all public
+        instance attributes.
+        """
+        for clsTest in self.AllClasses:
+            lstReference = self.PublicInstanceFields
+            objTest = clsTest()
+            lstTest = objTest.getInstanceFields()
+            self.assertItemsEqual(lstTest, lstReference)
+            del objTest
+    
+
 #+ test suites
 
 TestSuite1 = unittest.TestLoader().loadTestsFromTestCase(Test_Singleton)
@@ -1118,10 +1209,12 @@ TestSuite6 = unittest.TestLoader().loadTestsFromTestCase(Test_ProtectedMiddle)
 
 TestSuite7 = unittest.TestLoader().loadTestsFromTestCase(Test_ProtectedBottom)
 
+TestSuite8 = unittest.TestLoader().loadTestsFromTestCase(Test_Introspection)
+
 TestSuite = unittest.TestSuite()
 
 TestSuite.addTests([TestSuite1, TestSuite2, TestSuite3, TestSuite4, TestSuite5,
-                                                        TestSuite6, TestSuite7])
+                                        TestSuite6, TestSuite7, TestSuite8])
 
 if __name__ == "__main__":
     sys.stdout.write("Conducting libencapsulation library tests...\n")

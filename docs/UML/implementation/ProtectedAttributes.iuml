@@ -6,10 +6,15 @@
 
 class ProtectedAttributes <<SINGLETON>> {
     static_field(__metaclass__): ProtectedMeta
-    # _onInit(): /type A/, type B/, ...// -> None
+    # {abstract} _onInit(): /type A/, type B/, ...// -> None
     __init__(): /type A/, type B/, ...// -> None
     __getattribute__(): str -> type A
     __setattr__(): str, type A -> None
     __delattr__(): str -> None
     __del__(): None -> None
+    + static_method(getClassFields): None -> list(str)
+    + static_method(getClassMethods): None -> list(str)
+    + static_method(getInstanceMethods): None -> list(str)
+    + static_method(getProperties): None -> list(str)
+    + getInstanceFields: None -> list(str)
 }

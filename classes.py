@@ -39,9 +39,9 @@ inside this _onInit() method. Do not modify the initialization magic method
 __init__()!
 """
 
-__version__ = "0.1.1.0"
-__date__ = "13-11-2019"
-__status__ = "Development"
+__version__ = "1.0.0.0"
+__date__ = "15-11-2019"
+__status__ = "Production"
 
 #imports
 
@@ -79,7 +79,7 @@ class ProtectedMeta(abc.ABCMeta):
         * Properties can be deleted from an instance of a class if the property
             has __delete__ descriptor
     
-    Version 0.1.1.0
+    Version 1.0.0.0
     """
     
     #magic methods to hook attributes access on the class level
@@ -109,7 +109,7 @@ class ProtectedMeta(abc.ABCMeta):
             libexceptions.NotExistingAttribute: non-existing attribute is
                 accessed
         
-        Version 0.1.1.0
+        Version 1.0.0.0
         """
         bCond1 = strAttrName.startswith('_')
         bCond2 = not strAttrName.startswith('__')
@@ -146,7 +146,7 @@ class ProtectedMeta(abc.ABCMeta):
                 modified, e.g. method, property or an instance of a class with
                 __set__ descriptor preventing modification
         
-        Version 0.1.1.0
+        Version 1.0.0.0
         """
         bCond1 = strAttrName.startswith('_')
         bCond2 = not strAttrName.startswith('__')
@@ -206,7 +206,7 @@ class ProtectedMeta(abc.ABCMeta):
             libexceptions.NotExistingAttribute: denied deletion of a
                 non-existing attribute
         
-        Version 0.1.1.0
+        Version 1.0.0.0
         """
         bCond1 = strAttrName.startswith('_')
         bCond2 = not strAttrName.startswith('__')
@@ -262,7 +262,7 @@ class ProtectedMeta(abc.ABCMeta):
         Returns:
             class A: a new class object
         
-        Version 0.1.0.0
+        Version 1.0.0.0
         """
         objResult = abc.ABCMeta.__new__(cls, strName, lstBases, dictAttributes)
         #walk around to preserve the virtuality of the inherited protected
@@ -297,7 +297,7 @@ class ProtectedMeta(abc.ABCMeta):
         Args:
             cls: class A, the class object to be destructed
         
-        Version 0.1.0.0
+        Version 1.0.0.0
         """
         strAttributes = cls.__dict__.keys()
         for strAttr in strAttributes:
@@ -333,7 +333,7 @@ class FixedMeta(ProtectedMeta):
     
     Sub-classes ProtectedMeta.
     
-    Version 0.1.1.0
+    Version 1.0.0.0
     """
     
     #magic methods to hook attributes access on the class level
@@ -360,7 +360,7 @@ class FixedMeta(ProtectedMeta):
             libexceptions.NotExistingAttribute: denied deletion of a
                 non-existing attribute
         
-        Version 0.1.0.0
+        Version 1.0.0.0
         """
         bCond1 = strAttrName.startswith('_')
         bCond2 = not strAttrName.startswith('__')
@@ -396,7 +396,7 @@ class FixedMeta(ProtectedMeta):
                 modified, or such argument does not exist
             libexceptions.NotExistingAttribute: the attribute does not exist
         
-        Version 0.1.0.0
+        Version 1.0.0.0
         """
         bCond1 = strAttrName.startswith('_')
         bCond2 = not strAttrName.startswith('__')
@@ -453,7 +453,21 @@ class ProtectedAttributes(object):
     change the __init__() method! If the _onInit() method is not re-defined the
     sub-class cannot be instantiated and will act as a singleton.
     
-    Version 0.1.1.0
+    Class methods:
+        getClassFields():
+            None -> list(str)
+        getClassMethods():
+            None -> list(str)
+        getInstanceMethods():
+            None -> list(str)
+        getProperties():
+            None -> list(str)
+    
+    Methods:
+        getInstanceFields():
+            None -> list(str)
+    
+    Version 1.0.0.0
     """
     
     __metaclass__ = ProtectedMeta
@@ -475,7 +489,7 @@ class ProtectedAttributes(object):
         Signature:
             /type A/, type B/, ...// -> None
         
-        Version 0.1.0.0
+        Version 1.0.0.0
         """
         pass
     
@@ -506,7 +520,7 @@ class ProtectedAttributes(object):
             TypeError: the abstract instance method _onInit() is not re-defined
                 as not abstract, and the class cannot be instantiated
         
-        Version 0.1.0.0
+        Version 1.0.0.0
         """
         self._onInit(*args, **kwargs)
         self._bLocked = True
@@ -534,7 +548,7 @@ class ProtectedAttributes(object):
                 existing attribute, i.e. by its own desriptor
             libexceptions.NotExistingAttribute: the attribute does not exist
         
-        Version 0.1.1.0
+        Version 1.0.0.0
         """
         objClass = object.__getattribute__(self, '__class__')
         bLocked = object.__getattribute__(self, '__dict__').get('_bLocked',
@@ -578,7 +592,7 @@ class ProtectedAttributes(object):
                 existing attribute due to its own desriptor limitation, or
                 deletion of an instance, class or static method
         
-        Version 0.1.1.0
+        Version 1.0.0.0
         """
         objClass = object.__getattribute__(self, '__class__')
         bLocked = object.__getattribute__(self, '__dict__').get('_bLocked',
@@ -639,7 +653,7 @@ class ProtectedAttributes(object):
                 own desriptor limitation
             libexceptions.NotExistingAttribute: the attribute does not exist
         
-        Version 0.1.1.0
+        Version 1.0.0.0
         """
         objClass = object.__getattribute__(self, '__class__')
         bCond1 = strAttrName.startswith('_')
@@ -675,7 +689,7 @@ class ProtectedAttributes(object):
         Signature:
             None -> None
         
-        Version 0.1.0.0
+        Version 1.0.0.0
         """
         strAttributes = self.__dict__.keys()
         for strAttr in strAttributes:
@@ -691,6 +705,125 @@ class ProtectedAttributes(object):
                 del gAttrValue
             except:
                 pass
+    
+    #public class methods
+    
+    @classmethod
+    def getClassFields(cls):
+        """
+        Returns a list of all public class attributes available to this class
+        and its instances - excluding the methods and properties.
+        
+        Signature:
+            None -> list(str)
+        
+        Returns:
+            list(str): names of the public class data field attributes
+        
+        Version 1.0.0.0
+        """
+        strlstResult = []
+        for clsParent in cls.__mro__:
+            for strName, objItem in clsParent.__dict__.items():
+                bCond1 = not strName.startswith('_')
+                bCond2 = not (strName in strlstResult)
+                bCond3 = not isinstance(objItem, (classmethod, staticmethod,
+                                                property, types.FunctionType))
+                if bCond1 and bCond2 and bCond3:
+                    strlstResult.append(strName)
+        return strlstResult
+    
+    @classmethod
+    def getClassMethods(cls):
+        """
+        Returns a list of all public class and static methods available to this
+        class and its instances.
+        
+        Signature:
+            None -> list(str)
+        
+        Returns:
+            list(str): names of the public class and static methods
+        
+        Version 1.0.0.0
+        """
+        strlstResult = []
+        for clsParent in cls.__mro__:
+            for strName, objItem in clsParent.__dict__.items():
+                bCond1 = not strName.startswith('_')
+                bCond2 = not (strName in strlstResult)
+                bCond3 = isinstance(objItem, (classmethod, staticmethod))
+                if bCond1 and bCond2 and bCond3:
+                    strlstResult.append(strName)
+        return strlstResult
+    
+    @classmethod
+    def getInstanceMethods(cls):
+        """
+        Returns a list of all public instance methods visible to this class and
+        its instances, although they can be used only by the instances.
+        
+        Signature:
+            None -> list(str)
+        
+        Returns:
+            list(str): names of the public instance methods
+        
+        Version 1.0.0.0
+        """
+        strlstResult = []
+        for clsParent in cls.__mro__:
+            for strName, objItem in clsParent.__dict__.items():
+                bCond1 = not strName.startswith('_')
+                bCond2 = not (strName in strlstResult)
+                bCond3 = not isinstance(objItem, classmethod)
+                bCond4 = isinstance(objItem, types.FunctionType)
+                if bCond1 and bCond2 and bCond3 and bCond4:
+                    strlstResult.append(strName)
+        return strlstResult
+    
+    @classmethod
+    def getProperties(cls):
+        """
+        Returns a list of all public instance methods visible to this class and
+        its instances, although they can be used only by the instances.
+        
+        Signature:
+            None -> list(str)
+        
+        Returns:
+            list(str): names of the public instance methods
+        
+        Version 1.0.0.0
+        """
+        strlstResult = []
+        for clsParent in cls.__mro__:
+            for strName, objItem in clsParent.__dict__.items():
+                bCond1 = not strName.startswith('_')
+                bCond2 = not (strName in strlstResult)
+                bCond3 = isinstance(objItem, property)
+                if bCond1 and bCond2 and bCond3:
+                    strlstResult.append(strName)
+        return strlstResult
+    
+    #public instance methods
+    
+    def getInstanceFields(self):
+        """
+        Returns a list of all public instance attributes available to this
+        specific instance of the class.
+        
+        Signature:
+            None -> list(str)
+        
+        Returns:
+            list(str): names of the public instance attributes
+        
+        Version 1.0.0.0
+        """
+        strlstResult = list(filter(lambda x: not x.startswith('_'),
+                                                        self.__dict__.keys()))
+        return strlstResult
 
 class FixedAttributes(ProtectedAttributes):
     """
@@ -716,7 +849,21 @@ class FixedAttributes(ProtectedAttributes):
     change the __init__() method! If the _onInit() method is not re-defined the
     sub-class cannot be instantiated and will act as a singleton.
     
-    Version 0.1.1.0
+    Class methods:
+        getClassFields():
+            None -> list(str)
+        getClassMethods():
+            None -> list(str)
+        getInstanceMethods():
+            None -> list(str)
+        getProperties():
+            None -> list(str)
+    
+    Methods:
+        getInstanceFields():
+            None -> list(str)
+    
+    Version 1.0.0.0
     """
     
     __metaclass__ = FixedMeta
@@ -743,7 +890,7 @@ class FixedAttributes(ProtectedAttributes):
                 attribute
             libexceptions.NotExistingAttribute: the attribute does not exist
         
-        Version 0.1.0.0
+        Version 1.0.0.0
         """
         objClass = object.__getattribute__(self, '__class__')
         bCond1 = strAttrName.startswith('_')
@@ -777,7 +924,7 @@ class FixedAttributes(ProtectedAttributes):
             libexceptions.CustomAttributeError: denied modification of an
                 existing attribute, i.e. by its own desriptor
         
-        Version 0.1.0.0
+        Version 1.0.0.0
         """
         objClass = object.__getattribute__(self, '__class__')
         bLocked = object.__getattribute__(self, '__dict__').get('_bLocked',

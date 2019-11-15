@@ -39,18 +39,18 @@ For traceability the relation between tests and requirements is summarized in th
 
 | **Requirement ID** | **Covered in test(s)** | **Verified \[YES/NO\]**) |
 | :----------------- | :--------------------- | :----------------------- |
-| REQ-FUN-000        |              | NO                      |
-| REQ-FUN-001        |              | NO                      |
-| REQ-FUN-002        |              | NO                      |
-| REQ-FUN-003        |              | NO                      |
-| REQ-FUN-004        |              | NO                      |
-| REQ-FUN-005        |              | NO                      |
-| REQ-FUN-006        |              | NO                      |
-| REQ-AWN-000        |              | NO                      |
-| REQ-AWN-001        |              | NO                      |
-| REQ-AWN-002        |              | NO                      |
-| REQ-AWN-003        |              | NO                      |
+| REQ-FUN-000        | TEST-T-001, TEST-T-002 | YES                      |
+| REQ-FUN-001        | TEST-T-001, TEST-T-002 | YES                      |
+| REQ-FUN-002        | TEST-T-001, TEST-T-002 | YES                      |
+| REQ-FUN-003        | TEST-T-001, TEST-T-002 | YES                      |
+| REQ-FUN-004        | TEST-T-001, TEST-T-002 | YES                      |
+| REQ-FUN-005        | TEST-T-003             | YES                      |
+| REQ-FUN-006        | TEST-T-000             | YES                      |
+| REQ-AWN-000        | TEST-T-001, TEST-T-002 | YES                      |
+| REQ-AWN-001        | TEST-T-001, TEST-T-002 | YES                      |
+| REQ-AWN-002        | TEST-T-001, TEST-T-002 | YES                      |
+| REQ-AWN-003        | TEST-T-001, TEST-T-002 | YES                      |
 
 | **Software ready for production \[YES/NO\]** | **Rationale**                 |
 | :------------------------------------------: | :---------------------------- |
-| NO                                          | not implemented yet          |
+| YES                                          | all tests are passed          |

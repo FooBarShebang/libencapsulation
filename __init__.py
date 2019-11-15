@@ -38,8 +38,8 @@ __init__()!
 """
 
 __project__ = 'Partial implementation of the encapsulation in Python'
-__version_info__= (0, 0, 2)
-__version_suffix__= '-dev1'
+__version_info__= (0, 1, 0)
+__version_suffix__= '-rc1'
 __version__= ''.join(['.'.join(map(str, __version_info__)), __version_suffix__])
 __date__ = '14-11-2019'
 __status__ = 'Development'
