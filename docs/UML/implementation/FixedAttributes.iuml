@@ -1,0 +1,10 @@
+!define FIXED_ATTRIBUTES
+
+!ifndef CLASSES
+!include ../Templates/Classes.cuml
+!endif
+
+class FixedAttributes <<SINGLETON>> {
+    __setattr__(): str, type A -> None
+    __delattr__(): str -> None
+}

@@ -93,9 +93,11 @@ class ProtectedMeta(abc.ABCMeta):
         than one undescore.
         
         Signature:
-            str -> type A
+            class A, str -> type A
         
         Args:
+            objCaller: class A, the class object, to which this method is
+                applied
             strAttrName: str, name of an attribute to access
         
         Returns:
@@ -129,9 +131,11 @@ class ProtectedMeta(abc.ABCMeta):
         more than one undescore.
         
         Signature:
-            str, type A -> None
+            class A, str, type A -> None
         
         Args:
+            objCaller: class A, the class object, to which this method is
+                applied
             strAttrName: str, name of an attribute to modify
             gValue: type A, the value to assign
         
@@ -186,9 +190,11 @@ class ProtectedMeta(abc.ABCMeta):
         than one undescore.
         
         Signature:
-            str, type A -> None
+            class A, str -> None
         
         Args:
+            objCaller: class A, the class object, to which this method is
+                applied
             strAttrName: str, name of an attribute to delete
         
         Raises:
@@ -243,16 +249,18 @@ class ProtectedMeta(abc.ABCMeta):
         the class is reconstructed manually.
         
         Signature:
-            str, list(class A), dict(str -> type A) -> class B
+            type class A, str, list(class B), dict(str -> type A) -> class A
         
         Args:
+            cls: type class A, factory for the class to be created, basically,
+                this metclass itself
             strName: str, name of the class to be created
-            lstBases: list(class A), list of the super classes
+            lstBases: list(class B), list of the super classes
             dictAttributes: dict(str -> type A), dictionary of the class'
                 attributes
         
         Returns:
-            class B: a new class object
+            class A: a new class object
         
         Version 0.1.0.0
         """
@@ -284,7 +292,10 @@ class ProtectedMeta(abc.ABCMeta):
         deletion of all class attributes, especially the 'protected' ones.
         
         Signature:
-            None -> None
+            class A -> None
+        
+        Args:
+            cls: class A, the class object to be destructed
         
         Version 0.1.0.0
         """
@@ -334,9 +345,11 @@ class FixedMeta(ProtectedMeta):
         deletion of any attribute.
         
         Signature:
-            str, type A -> None
+            class A, str -> None
         
         Args:
+            objCaller: class A, the class object, to which this method is
+                applied
             strAttrName: str, name of an attribute to delete
         
         Raises:
@@ -368,9 +381,11 @@ class FixedMeta(ProtectedMeta):
         more than one undescore.
         
         Signature:
-            str, type A -> None
+            class A, str, type A -> None
         
         Args:
+            objCaller: class A, the class object, to which this method is
+                applied
             strAttrName: str, name of an attribute to modify
             gValue: type A, the value to assign
         
@@ -456,6 +471,9 @@ class ProtectedAttributes(object):
         
         Note that the signature of the re-defined version of this method will
         define the signature of the class instantiation.
+        
+        Signature:
+            /type A/, type B/, ...// -> None
         
         Version 0.1.0.0
         """

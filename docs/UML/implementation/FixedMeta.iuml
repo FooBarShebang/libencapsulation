@@ -1,0 +1,10 @@
+!define FIXED_META
+
+!ifndef CLASSES
+!include ../Templates/Classes.cuml
+!endif
+
+class FixedMeta <<metaclass>> {
+    __setattr__(): class A, str, type A -> None
+    __delattr__(): class A, str -> None
+}

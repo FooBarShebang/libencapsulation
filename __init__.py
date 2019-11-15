@@ -48,6 +48,8 @@ __maintainer__ = 'a.azarov@diagnoptics.com'
 __license__ = 'LGPL-3.0'
 __copyright__ = 'Diagnoptics Technologies B.V.'
 
-# import all exceptions into the library's upper level namespace
+#import all base classes and exceptions into the library's upper level namespace
 
 from classes import ProtectedAttributes, FixedAttributes
+from classes import CustomAttributeError, ConstantAttributeAssignment
+from classes import NotExistingAttribute, PrivateAttributeAccess

@@ -1,0 +1,15 @@
+!define PROTECTED_ATTRIBUTES
+
+!ifndef CLASSES
+!include ../Templates/Classes.cuml
+!endif
+
+class ProtectedAttributes <<SINGLETON>> {
+    static_field(__metaclass__): ProtectedMeta
+    # _onInit(): /type A/, type B/, ...// -> None
+    __init__(): /type A/, type B/, ...// -> None
+    __getattribute__(): str -> type A
+    __setattr__(): str, type A -> None
+    __delattr__(): str -> None
+    __del__(): None -> None
+}

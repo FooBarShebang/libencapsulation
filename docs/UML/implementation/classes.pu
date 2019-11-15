@@ -1,0 +1,74 @@
+@startuml classes
+
+namespace abc <<standard library>> {
+    ABCMeta <<metaclass>>
+}
+
+class type <<builtin>>
+
+class object <<builtin>>
+
+class AttributeError <<builtin>> {
+    + msg
+    + args
+}
+
+abc.ABCMeta -|> type
+
+type -[hidden] AttributeError
+
+AttributeError -[hidden] object
+
+namespace libencapsulation <<library>> {
+    !ifndef PROTECTED_META
+    !include ./ProtectedMeta.iuml
+    !endif
+    
+    !ifndef FIXED_META
+    !include ./FixedMeta.iuml
+    !endif
+    
+    ProtectedMeta <|-- FixedMeta
+    
+    !ifndef PROTECTED_ATTRIBUTES
+    !include ./ProtectedAttributes.iuml
+    !endif
+    
+    !ifndef FIXED_ATTRIBUTES
+    !include ./FixedAttributes.iuml
+    !endif
+    
+    ProtectedAttributes <|-- FixedAttributes
+    
+    ProtectedMeta -o "1" ProtectedAttributes
+    
+    FixedMeta -o "1" FixedAttributes
+}
+
+abc.ABCMeta <|-- libencapsulation.ProtectedMeta
+
+object <|-- libencapsulation.ProtectedAttributes
+
+namespace libexceptions <<library>>{
+    
+    class CustomAttributeError {
+        + Info
+        + Traceback
+    }
+    
+    class ConstantAttributeAssignment
+    
+    ConstantAttributeAssignment --|> CustomAttributeError
+    
+    class PrivateAttributeAccess
+    
+    PrivateAttributeAccess --|> CustomAttributeError
+    
+    class NotExistingAttribute
+    
+    CustomAttributeError <|- NotExistingAttribute
+}
+
+libexceptions.CustomAttributeError --|> AttributeError
+
+@enduml

@@ -41,3 +41,28 @@ The class *FixedAttributes* also adds the contant data structure of an object du
 * Neither class nor instance data attributes can be deleted or created during the lifetime of the object
 
 Both classes implement singleton behaviour, i.e. their sub-classes cannot be instantiated unless they re-define the protected method \_onInit() without the **@abc.abstract** decorator. This method is the only place inside the class' definition, where the protected instance attributes can be defined using the dot notation. It is supposed that all instance attributes are to be created inside this \_onInit() method. Do not modify the initialization magic method \_\_init\_\_()!
+
+![Class diagram of the library](./docs/UML/implementation/classes.png)
+
+## Content of the Library
+
+All functionality of the library is implemented within a single Python module **classes**, and all other files within the library are for testing and documentation, see the diaram below. The only two classes intended for the use by the library's clients: *ProtectedAttributes* and *FixedAttributes* - are aliased at the library's top interface level. Thus, these classes can be imported simply as:
+
+```python
+from libencapsulation import ProtectedAttributes
+```
+
+or by using any other allowed patterns, e.g.
+
+```python
+import libencapsulation as libenc
+
+BaseClass = libenc.FixedAttributes
+
+class MyClass(BaseClass):
+    ....
+```
+
+The custom exceptions: *CustomAttributeError*, *NotExistingAttribute*, *PrivateAttributeAccess* and *ConstantAttributeAssignment* - raised by these classes and defined in the **libexceptions** library are also aliased at the **libencapsulation** library's top interface level. Therefore, they can be imported directly from the **libencapsulation** library as well as from the **libexceptions** library.
+
+![File structure diagram](./docs/UML/files_structure.png)

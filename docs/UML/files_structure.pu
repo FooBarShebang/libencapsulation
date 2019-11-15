@@ -1,0 +1,42 @@
+@startuml files_structure
+@startsalt
+{
+    {T
+        + <&folder> libencapsulation
+        ++ <&folder> docs
+        +++ <&folder> Problem_Analysis
+        ++++ <&folder> PA001_Descriptors
+        +++++ <&script> *.py - test Python source files
+        +++++ <&script> *.iuml - PlantUML header files
+        +++++ <&script> *.pu - PlantUML source files
+        +++++ <&image> *.png - generated PlantUML diagrams
+        +++++ <&document> PA001_Descriptors.md
+        ++++ <&folder> PA002_Attributes_Resolution
+        +++++ <&script> *.py - test Python source files
+        +++++ <&script> *.pu - PlantUML source files
+        +++++ <&image> *.png - generated PlantUML diagrams
+        +++++ <&document> PA002_Attributes_Resolution.md
+        ++++ <&document> index.md
+        +++ <&folder> UML
+        ++++ <&folder> design
+        +++++ <&script> *.pu - PlantUML source files
+        +++++ <&image> *.png - generated PlantUML diagrams
+        ++++ <&folder> implementation
+        +++++ <&script> *.iuml - PlantUML header files
+        +++++ <&script> *.pu - PlantUML source files
+        +++++ <&image> *.png - generated PlantUML diagrams
+        ++++ <&image> files_structure.png
+        ++++ <&script> files_structure.pu
+        +++ <&document> design.md
+        +++ <&document> index.md
+        +++ <&document> requirements.md
+        +++ <&document> test_report.md
+        ++ <&document> LICENSE.txt
+        ++ <&document> README.md
+        ++ <&document> Release_log.md
+        ++ <&code> <b>classes.py</b>
+        ++ <&script> tests.py
+    }
+}
+@endsalt
+@enduml
