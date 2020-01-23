@@ -11,3 +11,7 @@ Implemented the tested the full descriptors support and the object's data struct
 ## 2019-11-15 version 0.1.0-rc1
 
 Implemented and tested the introspection functionality. The library is in working state, but lacks the documentation.
+
+## 2020-01-23 version 0.1.0-rc1
+
+Migrated to GitLab.
